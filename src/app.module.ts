@@ -1,13 +1,18 @@
 // IMPORTS
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { DatabaseModule} from './modules/database/database.module';
+import { BdaysModule } from './modules/bdays/bdays.module';
+import { ConfigModule } from '@nestjs/config';
 
 // MODULE
 @Module({
-  imports: [],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [
+    DatabaseModule,
+    BdaysModule,
+    ConfigModule.forRoot(),
+  ],
+  controllers: [],
+  providers: [],
 })
 
 // EXPORTS
