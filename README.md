@@ -1,6 +1,6 @@
 # Bday Calendar [Server]
 
-This repository holds the server of Bday-Calendar, a dashboard where you can track the birthdayd from your family-memers and friedns and get notified about
+This repository holds the server of a small application where you can track the birthdays from your family-members and friends and get notified about
 soon occuring bdays - so that you hopefully never forget them again.
 
 ## Installation
