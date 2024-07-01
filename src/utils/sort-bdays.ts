@@ -25,7 +25,7 @@ const sortBdays = (bdays) => {
   bdays.forEach(bday => {
 
     // GET MONTH OF BDAY
-    const month = new Date(bday.birthdate).getMonth(); // getMonth() returns 0 for January, 1 for February, etc.
+    const month = new Date(bday.birthDate).getMonth(); // getMonth() returns 0 for January, 1 for February, etc.
 
     // MAP THE MONTH-LABEL
     const monthLabel = monthLabels[month];
@@ -37,24 +37,20 @@ const sortBdays = (bdays) => {
 
   // SORT BDAYS IN MONTHS
   for (const month in months) {
-    months[month].sort((a, b) => new Date(a.date).getDate() - new Date(b.date).getDate());
+    months[month].sort((a, b) => new Date(a.birthDate).getDate() - new Date(b.birthDate).getDate());
   }
 
-  // DEFINE CORRECT ORDER OF MONTHS
-  const sortedBdays = [...monthLabels.slice(currentMonth), ...monthLabels.slice(0, currentMonth)].reduce((acc, month) => {
-
-    // SET CORRECT MONTH
-    acc[month] = months[month];
-
-    // RETURN ACCUMULATOR
-    return acc;
-
-  }, {});
+  // CREATE AN ARRAY OF MONTH OBJECTS
+  const sortedBdays = [...monthLabels.slice(currentMonth), ...monthLabels.slice(0, currentMonth)].map(month => ({
+    label: month,
+    events: months[month]
+  }));
 
   // RETURN SORTED-BDAYS
-  return sortedBdays;
+  return sortedBdays
 
 };
+
 
 // EXPORTS
 export {

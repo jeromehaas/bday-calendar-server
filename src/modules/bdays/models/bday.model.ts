@@ -16,7 +16,7 @@ export class Bday extends Model<Bday> {
   lastname: string;
 
   // BIRTHDATE
-  @Column({ type: 'DATE' })
-  birthdate: Date;
+  @Column({ field: 'birth_date', type: 'DATE' })
+  birthDate: Date;
 
 }

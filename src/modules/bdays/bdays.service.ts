@@ -6,6 +6,7 @@ import { UpdateBdayDto } from './dto/update-bday.dto';
 import { Bday } from './models/bday.model';
 import { sortBdays } from '../../utils/sort-bdays';
 import { extendBdays, extendBday } from '../../utils/extend-bdays';
+import { findNextBday } from '../../utils/find-next-bday';
 
 // INJECTABLE
 @Injectable()
