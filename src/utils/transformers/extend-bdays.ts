@@ -5,31 +5,39 @@ import { addYears, differenceInDays, differenceInYears, format, parseISO } from 
 const extendBday = (bday) => {
 
   // GET BIRTHDATE AND CURRENT DATE
-  const birthDate = parseISO(bday.birthDate);
   const today = new Date();
+  const birthDate = parseISO(bday.birthDate);
+  const todayDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
 
   // CALCULATE CURRENT AGE
   const currentAge = differenceInYears(today, birthDate);
 
   // CALCULATE NEXT BDAY
-  let nextBday;
-  nextBday = addYears(birthDate, currentAge + 1);
-  if (differenceInDays(nextBday, today) < 0) {
-    nextBday = addYears(birthDate, currentAge + 2);
-  }
+  const isTodayBirthday = todayDate.getTime() === new Date(today.getFullYear(), birthDate.getMonth(), birthDate.getDate()).getTime();
+
+  // DEFINE NEXT AGE
+  let nextAge = currentAge + 1;
+
+  // GET NEXT BDAY
+  const nextBday = isTodayBirthday ? todayDate : addYears(birthDate, nextAge);
+
+  // CHECK FOR CURRENT BDAY
+  if (!isTodayBirthday && differenceInDays(nextBday, today) < 1) nextAge += 1;
 
   // CALCULATE NEXT BDAY-DATE
   const birthdayDate = format(nextBday, 'yyyy-MM-dd');
 
   // CALCULATE REMAINING DAYS
-  const remainingDays = differenceInDays(nextBday, today);
+  const remainingDays = isTodayBirthday ? 0 : differenceInDays(nextBday, today);
 
   // EXTEND BDAY
   const extendedBday = {
     ...bday,
     currentAge: currentAge,
+    nextAge: isTodayBirthday ? currentAge : nextAge,
     remainingDays: remainingDays,
     birthdayDate: birthdayDate,
+    nextBday: nextAge,
   };
 
   // RETURN EXTENDED BDAY
@@ -38,43 +46,17 @@ const extendBday = (bday) => {
 
 // EXTEND BDAYS
 const extendBdays = (bdays) => {
-
-  // SET INDEX AND MINIMUM REMAINING DAYS
-  let nextBdayIndex = 0;
-  let minRemainingDays = Infinity;
-
   // EXTEND BDAYS
   const extendedBdays = bdays.map((bday) => {
-
     // EXTEND BDAY
     const extendedBday = extendBday(bday);
 
-
     // RETURN EXTENDED BDAY
     return extendedBday;
-
   });
-
-  // FIND NEXT BDAY
-  extendedBdays.forEach((bday, index) => {
-
-    // BY DEFAULT NEXT BDAY ID FALSE
-    bday.isNextBday = false;
-
-    // IF REMAINING DAYS IS SMALLER UPDATE INDEX
-    if (bday.remainingDays < minRemainingDays) {
-      minRemainingDays = bday.remainingDays;
-      nextBdayIndex = index;
-    }
-
-  });
-
-  // MARK NEXT BDAY
-  extendedBdays[nextBdayIndex].isNextBday = true;
 
   // RETURN EXTENDED BDAYS
   return extendedBdays;
-
 };
 
 // EXPORTS

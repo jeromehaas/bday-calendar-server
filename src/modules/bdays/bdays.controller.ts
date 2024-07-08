@@ -95,7 +95,7 @@ export class BdaysController {
     // SEND RESPONSE
     return {
       success: true,
-      message: 'Success: bday has been updated!',
+      message: 'Success: bday has been deleted!',
       data: {
         bday: bday,
       },

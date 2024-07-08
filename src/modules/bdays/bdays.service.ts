@@ -4,9 +4,10 @@ import { InjectModel } from '@nestjs/sequelize';
 import { CreateBdayDto } from './dto/create-bday.dto';
 import { UpdateBdayDto } from './dto/update-bday.dto';
 import { Bday } from './models/bday.model';
-import { sortBdays } from '../../utils/sort-bdays';
-import { extendBdays, extendBday } from '../../utils/extend-bdays';
-import { findNextBday } from '../../utils/find-next-bday';
+import { sortBdays } from '../../utils/transformers/sort-bdays';
+import { extendBdays, extendBday } from '../../utils/transformers/extend-bdays';
+import { markNextBday } from '../../utils/transformers/mark-next-bday';
+import {filterCurrentBdays} from '../../utils/transformers/filter-current-bdays';
 
 // INJECTABLE
 @Injectable()
@@ -35,8 +36,11 @@ export class BdaysService {
     // EXTEND BDAYS
     const extendedBdays = extendBdays(bdays);
 
+    // MARK NEXT BDAY
+    const markedBdays = markNextBday(extendedBdays);
+
     // SORT BDAYS
-    const sortedBdays = sortBdays(extendedBdays);
+    const sortedBdays = sortBdays(markedBdays);
 
     // RETURN BDAYS
     return sortedBdays;
@@ -54,8 +58,11 @@ export class BdaysService {
     // EXTEND BDAYS
     const extendedBdays = extendBdays(bdays);
 
+    // MARK NEXT BDAY
+    const markedBdays = markNextBday(extendedBdays);
+
     // SORT BDAYS
-    const sortedBdays = sortBdays(extendedBdays);
+    const sortedBdays = sortBdays(markedBdays);
 
     // RETURN BDAYS
     return sortedBdays;
@@ -78,6 +85,25 @@ export class BdaysService {
 
     // RETURN BDAY
     return extendedBday;
+
+  };
+
+  // FIND CURRENT
+  async findCurrent() {
+
+    // GET BDAYS
+    const bdays = await this.bdayModel.findAll({
+      raw: true,
+    });
+
+    // EXTEND BDAY
+    const extendedBdays = extendBdays(bdays);
+
+    // FILTER CURRENT
+    const currentBdays = filterCurrentBdays(extendedBdays);
+
+    // RETURN BDAY
+    return currentBdays;
 
   };
 

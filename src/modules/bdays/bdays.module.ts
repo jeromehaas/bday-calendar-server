@@ -8,6 +8,7 @@ import { Bday } from './models/bday.model';
 // MODULE
 @Module({
   imports: [SequelizeModule.forFeature([Bday])],
+  exports: [BdaysService],
   controllers: [BdaysController],
   providers: [BdaysService],
 })
