@@ -1,0 +1,12 @@
+Hi Jérôme.
+
+{{#single context}}
+  This week is the birthday of {{context.0.firstname}} {{context.0.lastname}}.
+{{else}}
+  This week we celebrate the birthdays of:
+  {{#each context}}
+    - {{firstname}} {{lastname}}
+  {{/each}}
+{{/single}}
+
+Don't forget to send your congratulations!
