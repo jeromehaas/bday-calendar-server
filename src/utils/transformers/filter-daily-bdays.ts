@@ -2,14 +2,14 @@
 import { format } from 'date-fns';
 
 // FILTER CURRENT BDAYS
-const filterCurrentBdays = (bdays) => {
+const filterDailyBdays = (bdays) => {
 
   // GET CURRENT DATE
   const today = new Date();
   const currentDate = format(today, 'yyyy-MM-dd');
 
   // FILTER
-  const currentBdays = bdays.filter((bday) => {
+  const dailyBdays = bdays.filter((bday) => {
 
     // CHECK FOR CURRENT BDAY
     if (bday.birthdayDate === currentDate) {
@@ -19,11 +19,11 @@ const filterCurrentBdays = (bdays) => {
   });
 
   // RETURN
-  return currentBdays;
+  return dailyBdays;
 
 };
 
 // EXPORTS
 export {
-  filterCurrentBdays,
+  filterDailyBdays,
 };

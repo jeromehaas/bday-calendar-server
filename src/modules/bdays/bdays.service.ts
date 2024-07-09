@@ -7,7 +7,8 @@ import { Bday } from './models/bday.model';
 import { sortBdays } from '../../utils/transformers/sort-bdays';
 import { extendBdays, extendBday } from '../../utils/transformers/extend-bdays';
 import { markNextBday } from '../../utils/transformers/mark-next-bday';
-import {filterCurrentBdays} from '../../utils/transformers/filter-current-bdays';
+import {filterDailyBdays} from '../../utils/transformers/filter-daily-bdays';
+import {filterWeeklyBdays} from '../../utils/transformers/filter-weekly-bdays';
 
 // INJECTABLE
 @Injectable()
@@ -88,8 +89,8 @@ export class BdaysService {
 
   };
 
-  // FIND CURRENT
-  async findCurrent() {
+  // FIND DAILY
+  async findDaily() {
 
     // GET BDAYS
     const bdays = await this.bdayModel.findAll({
@@ -100,10 +101,29 @@ export class BdaysService {
     const extendedBdays = extendBdays(bdays);
 
     // FILTER CURRENT
-    const currentBdays = filterCurrentBdays(extendedBdays);
+    const dailyBdays = filterDailyBdays(extendedBdays);
 
     // RETURN BDAY
-    return currentBdays;
+    return dailyBdays;
+
+  };
+
+  // FIND WEEKLY
+  async findWeekly() {
+
+    // GET BDAYS
+    const bdays = await this.bdayModel.findAll({
+      raw: true,
+    });
+
+    // EXTEND BDAY
+    const extendedBdays = extendBdays(bdays);
+
+    // FILTER CURRENT
+    const weeklyBdays = filterWeeklyBdays(extendedBdays);
+
+    // RETURN BDAY
+    return weeklyBdays;
 
   };
 

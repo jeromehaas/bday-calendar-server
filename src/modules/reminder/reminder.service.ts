@@ -18,21 +18,43 @@ export class ReminderService {
     private mailerService: MailerService,
   ) {}
 
-  // REMIND OF BDAYS FOR TODAY
+  // REMIND FOR DAILY BDAYS
   @Cron('0 6 * * *')
-  async remindBdaysToday() {
+  async notifyTodaysBdays() {
 
-    // GET CURRENT BDAYS
-    const currentBdays = await this.bdaysService.findCurrent();
+    // GET DAILY BDAYS
+    const dailyBdays = await this.bdaysService.findDaily();
 
     // IF BDAYS TODAY
-    if (currentBdays.length > 0) {
+    if (dailyBdays.length > 0) {
 
       // SEND EMAIL
-     await this.mailerService.sendEmail({
-       subject: 'A new bday is about to occur.',
-       template: 'notify-today-bdays',
-     });
+      await this.mailerService.sendEmail({
+        subject: 'We have a birthday today!',
+        template: 'notify-daily-bdays',
+        context: dailyBdays,
+      });
+
+    }
+
+  };
+
+  // REMIND FOR WEEKLY BDAYS
+  @Cron('0 6 * * 1')
+  async notifyWeeklyBdays() {
+
+    // GET CURRENT BDAYS
+    const dailyBdays = await this.bdaysService.findWeekly();
+
+    // IF BDAYS TODAY
+    if (dailyBdays.length > 0) {
+
+      // SEND EMAIL
+      await this.mailerService.sendEmail({
+        subject: 'We have a birthday this week!',
+        template: 'notify-weekly-bdays',
+        context: dailyBdays,
+      });
 
     }
 

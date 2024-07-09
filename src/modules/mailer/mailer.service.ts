@@ -15,10 +15,21 @@ export class MailerService {
   // CONSTRUCTOR
   constructor(
     private readonly configService: ConfigService,
-  ) {};
+  ) {
+  };
 
   // CREATE TRANSPORTER
   createTransporter() {
+
+    // SETUP SINGLE HELPER
+    handlebars.registerHelper('single', function(array, options) {
+      console.log(array);
+      if (array.length === 1) {
+        return options.fn(this);
+      } else {
+        return options.inverse(this);
+      }
+    })
 
     // SETUP TRANSPORTER
     const transporter = nodemailer.createTransport({
@@ -45,7 +56,7 @@ export class MailerService {
   }
 
   // SEND EMAIL
-  async sendEmail({ subject, template }) {
+  async sendEmail({ subject, template, context }) {
 
     // TRY-CATCH BLOCK
     try {
@@ -53,9 +64,11 @@ export class MailerService {
       // SETUP TRANSPORTER
       const transporter = this.createTransporter();
 
+      console.log(context);
+
       // COMPILE HTML AND TEXT
-      const html = this.compileTemplate(`${template}/html.hbs`, { firstname: 'Jérôme' });
-      const text = this.compileTemplate(`${template}/text.hbs`, { firstname: 'Jérôme' });
+      const html = this.compileTemplate(`${template}/html.hbs`, { context: context });
+      const text = this.compileTemplate(`${template}/text.hbs`, { context: context });
 
       // DEFINE OPTIONS
       const options = {
@@ -71,7 +84,7 @@ export class MailerService {
 
     }
 
-    // HANDLE ERRORS
+      // HANDLE ERRORS
     catch (error) {
 
       // PRINT ERROR
