@@ -9,6 +9,7 @@ import { extendBdays, extendBday } from '../../utils/transformers/extend-bdays';
 import { markNextBday } from '../../utils/transformers/mark-next-bday';
 import {filterDailyBdays} from '../../utils/transformers/filter-daily-bdays';
 import {filterWeeklyBdays} from '../../utils/transformers/filter-weekly-bdays';
+import { filterMonthlyBdays } from '../../utils/transformers/filter-monthly-bdays';
 
 // INJECTABLE
 @Injectable()
@@ -124,6 +125,25 @@ export class BdaysService {
 
     // RETURN BDAY
     return weeklyBdays;
+
+  };
+
+  // FIND WEEKLY
+  async findMonthly() {
+
+    // GET BDAYS
+    const bdays = await this.bdayModel.findAll({
+      raw: true,
+    });
+
+    // EXTEND BDAY
+    const extendedBdays = extendBdays(bdays);
+
+    // FILTER CURRENT
+    const monthlyBdays = filterMonthlyBdays(extendedBdays);
+
+    // RETURN BDAY
+    return monthlyBdays;
 
   };
 

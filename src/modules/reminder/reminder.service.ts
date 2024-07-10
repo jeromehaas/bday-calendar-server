@@ -44,22 +44,42 @@ export class ReminderService {
   async notifyWeeklyBdays() {
 
     // GET CURRENT BDAYS
-    const dailyBdays = await this.bdaysService.findWeekly();
+    const weeklyBdays = await this.bdaysService.findWeekly();
 
     // IF BDAYS TODAY
-    if (dailyBdays.length > 0) {
+    if (weeklyBdays.length > 0) {
 
       // SEND EMAIL
       await this.mailerService.sendEmail({
         subject: 'We have a birthday this week!',
         template: 'notify-weekly-bdays',
-        context: dailyBdays,
+        context: weeklyBdays,
       });
 
     }
 
   };
 
+  // REMIND FOR MONTHLY BDAYS
+  @Cron('0 6 * * 1')
+  async notifyMonthlyBdays() {
+
+    // GET CURRENT BDAYS
+    const monthlyBdays = await this.bdaysService.findMonthly();
+
+    // IF BDAYS TODAY
+    if (monthlyBdays.length > 0) {
+
+      // SEND EMAIL
+      await this.mailerService.sendEmail({
+        subject: 'We have a birthday this month!',
+        template: 'notify-monthly-bdays',
+        context: monthlyBdays,
+      });
+
+    }
+
+  };
 }
 
 
