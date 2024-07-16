@@ -3,7 +3,7 @@ import { Module } from '@nestjs/common';
 import { BdaysService } from './bdays.service';
 import { BdaysController } from './bdays.controller';
 import { SequelizeModule } from '@nestjs/sequelize';
-import { Bday } from './models/bday.model';
+import { Bday } from '../database/models/bday.model';
 
 // MODULE
 @Module({

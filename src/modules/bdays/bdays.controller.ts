@@ -1,5 +1,5 @@
 // IMPORTS
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
 import { BdaysService } from './bdays.service';
 import { CreateBdayDto } from './dto/create-bday.dto';
 import { UpdateBdayDto } from './dto/update-bday.dto';
@@ -11,7 +11,8 @@ import { UpdateBdayDto } from './dto/update-bday.dto';
 export class BdaysController {
 
   // CONSTRUCTOR
-  constructor(private readonly bdaysService: BdaysService) {}
+  constructor(private readonly bdaysService: BdaysService) {
+  }
 
   // POST
   @Post()

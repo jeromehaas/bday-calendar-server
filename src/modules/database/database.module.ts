@@ -2,7 +2,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { SequelizeModule } from '@nestjs/sequelize';
-import { Bday } from '../bdays/models/bday.model';
+import { Bday } from './models/bday.model';
 
 // MODULE
 @Module({
@@ -21,8 +21,8 @@ import { Bday } from '../bdays/models/bday.model';
         dialectOptions: {
           ssl: {
             require: true,
-            rejectUnauthorized: false
-          }
+            rejectUnauthorized: false,
+          },
         },
       }),
       inject: [ConfigService],

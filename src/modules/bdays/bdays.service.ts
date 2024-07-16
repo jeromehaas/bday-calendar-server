@@ -1,14 +1,14 @@
 // IMPORTS
-import { Injectable, NotFoundException} from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { CreateBdayDto } from './dto/create-bday.dto';
 import { UpdateBdayDto } from './dto/update-bday.dto';
-import { Bday } from './models/bday.model';
+import { Bday } from '../database/models/bday.model';
 import { sortBdays } from '../../utils/transformers/sort-bdays';
-import { extendBdays, extendBday } from '../../utils/transformers/extend-bdays';
+import { extendBday, extendBdays } from '../../utils/transformers/extend-bdays';
 import { markNextBday } from '../../utils/transformers/mark-next-bday';
-import {filterDailyBdays} from '../../utils/transformers/filter-daily-bdays';
-import {filterWeeklyBdays} from '../../utils/transformers/filter-weekly-bdays';
+import { filterDailyBdays } from '../../utils/transformers/filter-daily-bdays';
+import { filterWeeklyBdays } from '../../utils/transformers/filter-weekly-bdays';
 import { filterMonthlyBdays } from '../../utils/transformers/filter-monthly-bdays';
 
 // INJECTABLE
@@ -151,7 +151,7 @@ export class BdaysService {
   async update(id: number, bday: UpdateBdayDto) {
 
     // UPDATE BDAY
-    await this.bdayModel.update(bday,{
+    await this.bdayModel.update(bday, {
       where: { id: id },
       returning: true,
     });
@@ -194,4 +194,3 @@ export class BdaysService {
   };
 
 }
-

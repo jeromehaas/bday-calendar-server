@@ -43,14 +43,13 @@ const sortBdays = (bdays) => {
   // CREATE AN ARRAY OF MONTH OBJECTS
   const sortedBdays = [...monthLabels.slice(currentMonth), ...monthLabels.slice(0, currentMonth)].map(month => ({
     label: month,
-    events: months[month]
+    events: months[month],
   }));
 
   // RETURN SORTED-BDAYS
-  return sortedBdays
+  return sortedBdays;
 
 };
-
 
 // EXPORTS
 export {

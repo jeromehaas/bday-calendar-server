@@ -46,13 +46,16 @@ const extendBday = (bday) => {
 
 // EXTEND BDAYS
 const extendBdays = (bdays) => {
+
   // EXTEND BDAYS
   const extendedBdays = bdays.map((bday) => {
+
     // EXTEND BDAY
     const extendedBday = extendBday(bday);
 
     // RETURN EXTENDED BDAY
     return extendedBday;
+
   });
 
   // RETURN EXTENDED BDAYS

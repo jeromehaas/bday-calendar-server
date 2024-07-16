@@ -1,5 +1,5 @@
 // IMPORT NECESSARY FUNCTIONS FROM DATE-FNS
-import { format, addMonths, isWithinInterval, parseISO, startOfMonth, endOfMonth } from 'date-fns';
+import { addMonths, endOfMonth, isWithinInterval, parseISO, startOfMonth } from 'date-fns';
 
 // FILTER CURRENT BDAYS
 const filterMonthlyBdays = (bdays) => {
@@ -18,7 +18,7 @@ const filterMonthlyBdays = (bdays) => {
     const bdayDate = parseISO(bday.birthdayDate);
 
     // CHECK FOR CURRENT BDAY
-    if (isWithinInterval(bdayDate, {start: startNextMonth, end: endNextMonth})) {
+    if (isWithinInterval(bdayDate, { start: startNextMonth, end: endNextMonth })) {
       return bday;
     }
 

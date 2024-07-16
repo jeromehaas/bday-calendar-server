@@ -15,8 +15,7 @@ export class MailerService {
   // CONSTRUCTOR
   constructor(
     private readonly configService: ConfigService,
-  ) {
-  };
+  ) {};
 
   // CREATE TRANSPORTER
   createTransporter() {
@@ -29,7 +28,7 @@ export class MailerService {
       } else {
         return options.inverse(this);
       }
-    })
+    });
 
     // SETUP TRANSPORTER
     const transporter = nodemailer.createTransport({

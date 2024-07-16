@@ -1,13 +1,11 @@
 // FILTER CURRENT BDAYS
-import { format, addDays, isWithinInterval, parseISO } from 'date-fns';
-
+import { addDays, format, isWithinInterval, parseISO } from 'date-fns';
 
 // FILTER CURRENT BDAYS
 const filterWeeklyBdays = (bdays) => {
 
   // GET CURRENT DATE
   const today = new Date();
-  const currentDate = format(today, 'yyyy-MM-dd');
 
   // GET DATE 7 DAYS FROM NOW
   const weekFromNow = addDays(today, 7);
@@ -20,7 +18,7 @@ const filterWeeklyBdays = (bdays) => {
     const bdayDate = parseISO(bday.birthdayDate);
 
     // CHECK FOR CURRENT BDAY
-    if (isWithinInterval(bdayDate, {start: today, end: parseISO(endDate)})) {
+    if (isWithinInterval(bdayDate, { start: today, end: parseISO(endDate) })) {
       return bday;
     }
 
