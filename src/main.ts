@@ -5,6 +5,9 @@ import { AppModule } from './app.module';
 // BOOTSTRAP
 async function bootstrap() {
 
+  // GET PORT
+  const port = process.env.APP_PORT || 3000;
+
   // SETUP APP
   const app = await NestFactory.create(AppModule);
 
@@ -15,7 +18,7 @@ async function bootstrap() {
   app.setGlobalPrefix('api');
 
   // LISTEN ON PORT
-  await app.listen(3000);
+  await app.listen(port);
 
 }
 
