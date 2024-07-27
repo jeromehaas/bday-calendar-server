@@ -61,7 +61,7 @@ export class ReminderService {
   };
 
   // REMIND FOR MONTHLY BDAYS
-  @Cron('0 6 * * 1')
+  @Cron('0 6 1 * *')
   async notifyMonthlyBdays() {
 
     // GET CURRENT BDAYS
