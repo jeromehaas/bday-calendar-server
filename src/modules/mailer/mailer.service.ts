@@ -22,12 +22,14 @@ export class MailerService {
 
     // SETUP SINGLE HELPER
     handlebars.registerHelper('single', function(array, options) {
-      console.log(array);
+
+      // CHECK FOR LENGHT
       if (array.length === 1) {
         return options.fn(this);
       } else {
         return options.inverse(this);
       }
+
     });
 
     // SETUP TRANSPORTER
@@ -62,8 +64,6 @@ export class MailerService {
 
       // SETUP TRANSPORTER
       const transporter = this.createTransporter();
-
-      console.log(context);
 
       // COMPILE HTML AND TEXT
       const html = this.compileTemplate(`${template}/html.hbs`, { context: context });

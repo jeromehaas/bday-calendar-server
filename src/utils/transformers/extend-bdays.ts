@@ -6,6 +6,8 @@ const extendBday = (bday) => {
 
   // GET BIRTHDATE AND CURRENT DATE
   const today = new Date();
+
+  if (!bday.birthDate) return;
   const birthDate = parseISO(bday.birthDate);
   const todayDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
 

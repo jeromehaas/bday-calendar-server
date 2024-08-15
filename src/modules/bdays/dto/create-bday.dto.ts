@@ -16,7 +16,6 @@ export class CreateBdayDto {
 
   // DATE
   @IsNotEmpty()
-  @IsDateString()
-  readonly date: string;
+  readonly birthDate: Date;
 
 }
